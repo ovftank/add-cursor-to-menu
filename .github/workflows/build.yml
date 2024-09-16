@@ -1,0 +1,57 @@
+name: Build, Release, and Upload
+
+on:
+    push:
+        branches:
+            - main
+        tags:
+            - 'v*.*.*'
+
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up MinGW
+              run: |
+                  choco install mingw
+
+            - name: Build the application
+              run: |
+                  windres resource.rc -o resource.o
+                  g++ -o AddCursorToMenu.exe main.cpp resource.o -mwindows
+
+            - name: Upload Build Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: AddCursorToMenu
+                  path: AddCursorToMenu.exe
+
+            - name: Create Release Description
+              id: create_description
+              run: |
+                  echo "## Add Cursor to Menu 🚀" > release_description.txt
+                  echo "" >> release_description.txt
+                  echo "Ứng dụng Windows này giúp thêm [Cursor](https://www.cursor.com/) vào menu trên chuột phải 🔧" >> release_description.txt
+                  echo "" >> release_description.txt
+
+            - name: Configure Git
+              run: |
+                  git config user.name "GitHub Actions"
+                  git config user.email "actions@github.com"
+
+            - name: Create GitHub Release
+              id: create_release
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: AddCursorToMenu.exe
+                  body_path: release_description.txt
+                  name: Release v1.0.0
+                  tag_name: v1.0.0
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
