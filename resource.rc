@@ -1,0 +1,32 @@
+#include <windows.h>
+
+IDI_ICON1 ICON DISCARDABLE "icon.ico"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS__WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", "Ta Tuan Anh, OvF Team\0"
+            VALUE "FileDescription", "Add Cursor to Menu\0"
+            VALUE "FileVersion", "1.0.0.0\0"
+            VALUE "InternalName", "AddCursorToMenu\0"
+            VALUE "LegalCopyright", "© 2024 Ta Tuan Anh. All rights reserved.\0"
+            VALUE "OriginalFilename", "AddCursorToMenu.exe\0"
+            VALUE "ProductName", "Add Cursor to Menu\0"
+            VALUE "ProductVersion", "1.0.0.0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1252
+    END
+END
